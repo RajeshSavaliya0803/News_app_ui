@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp"
+    >
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_main"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_water"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_main"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/_4sdp" />
+
+    <TextView
+        android:id="@+id/tv_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/iv_ch_logo"
+        app:layout_constraintEnd_toStartOf="@id/iv_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_main" />
+
+    <ImageView
+        android:id="@+id/iv_ch_logo"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:src="@drawable/ic_ch_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_main"
+        app:layout_constraintStart_toStartOf="@id/tv_main" />
+
+    <TextView
+        android:id="@+id/tv_ch_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:text="@string/cnn"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
+        app:layout_constraintStart_toEndOf="@id/iv_ch_logo"
+        app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="@string/_11_h"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
+        app:layout_constraintStart_toEndOf="@id/tv_ch_name"
+        app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
+    <ImageView
+        android:id="@+id/iv_com_logo"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
+        app:layout_constraintEnd_toStartOf="@id/tv_send"
+        app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
+    <TextView
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/send"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
+        app:layout_constraintEnd_toEndOf="@id/tv_main"
+        app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

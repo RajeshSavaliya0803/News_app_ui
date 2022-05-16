@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="news">News</string>
+    <string name="send">Send</string>
+    <string name="cnn">CNN</string>
+    <string name="_11_h">11h</string>
+    <string name="_09_h">8h</string>
+    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="lorem_latin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="b_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry">\u25A0  Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n\u25A0  Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n\u25A0  Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n\u25A0  Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n\u25A0  Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="highlight">highlight</string>
+    <string name="_11_may_2022">11 May 2022</string>
+    <string name="summary">Summary :</string>
+    <string name="read_full_story">Read Full Story</string>
+</resources>

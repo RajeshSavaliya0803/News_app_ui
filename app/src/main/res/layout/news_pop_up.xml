@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/_8sdp"
+    android:paddingTop="@dimen/_30sdp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <!--tools:showIn="@layout/fragment_today"-->
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/ic_down"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/const_slider"
+        app:layout_constraintEnd_toEndOf="@+id/const_slider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/grey" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_up_corners_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_water"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius_top_left="@dimen/_8sdp"
+                    app:riv_corner_radius_top_right="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/tv_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_main"
+                    app:layout_constraintStart_toStartOf="@id/iv_main"
+                    app:layout_constraintTop_toBottomOf="@id/iv_main" />
+
+                <ImageView
+                    android:id="@+id/iv_ch_logo"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:src="@drawable/ic_ch_logo"
+                    app:layout_constraintStart_toStartOf="@id/tv_main"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main" />
+
+                <TextView
+                    android:id="@+id/tv_ch_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/cnn"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_time"
+                    app:layout_constraintStart_toEndOf="@id/iv_ch_logo"
+                    app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_11_may_2022"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
+                    app:layout_constraintStart_toStartOf="@id/tv_ch_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ch_name" />
+
+                <View
+                    android:id="@+id/v_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/grey_d"
+                    app:layout_constraintBottom_toTopOf="@id/tv_summary"
+                    app:layout_constraintTop_toBottomOf="@id/iv_ch_logo" />
+
+                <TextView
+                    android:id="@+id/tv_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="@string/summary"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_main"
+                    app:layout_constraintStart_toStartOf="@id/iv_main"
+                    app:layout_constraintTop_toBottomOf="@id/v_1" />
+
+
+                <TextView
+                    android:id="@+id/tv_summary_o"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="@string/b_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@id/iv_main"
+                    app:layout_constraintStart_toStartOf="@id/iv_main"
+                    app:layout_constraintTop_toBottomOf="@id/tv_summary" />
+
+                <TextView
+                    android:id="@+id/tv_read_full_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/ic_tv_back"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/read_full_story"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_summary_o"
+                    app:layout_constraintTop_toBottomOf="@id/tv_summary_o" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
