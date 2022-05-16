@@ -1,4 +1,4 @@
-package com.news
+package com.sendstory.newsapp
 
 import org.junit.Test
 

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">News</string>
+    <string name="app_name">SendStory</string>
+
     <string name="news">News</string>
     <string name="send">Send</string>
     <string name="cnn">CNN</string>
@@ -12,4 +13,6 @@
     <string name="_11_may_2022">11 May 2022</string>
     <string name="summary">Summary :</string>
     <string name="read_full_story">Read Full Story</string>
+    <string name="msg_token_fmt">Token:-</string>
+
 </resources>

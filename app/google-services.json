@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "988497440133",
+    "project_id": "sendstoryco",
+    "storage_bucket": "sendstoryco.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988497440133:android:aa1088b28f26e3fe6d28ec",
+        "android_client_info": {
+          "package_name": "com.sendstory.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988497440133-ishqeiik8k8o9dgd7s80b4asdlg5haph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9BfFcMRHTCzqhp3s59lJb3X1Npqg48z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988497440133-ishqeiik8k8o9dgd7s80b4asdlg5haph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

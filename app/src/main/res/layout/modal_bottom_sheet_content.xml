@@ -4,13 +4,13 @@
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rounded_dialog"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const_slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="vertical"
+            android:background="@drawable/rounded_dialog"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,15 +134,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16sdp"
-
-                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:layout_marginVertical="@dimen/_12sdp"
                     android:background="@drawable/ic_tv_back"
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/read_full_story"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_summary_o"
                     app:layout_constraintTop_toBottomOf="@id/tv_summary_o" />
@@ -149,7 +148,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
