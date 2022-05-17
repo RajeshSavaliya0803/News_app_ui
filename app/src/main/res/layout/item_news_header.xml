@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/tv_main"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_8sdp"
@@ -56,7 +56,7 @@
         android:id="@+id/tv_ch_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_8sdp"
         android:text="@string/cnn"
         android:textColor="@color/grey"
         android:textSize="@dimen/_10ssp"
@@ -78,32 +78,24 @@
 
     <ImageView
         android:id="@+id/iv_com_logo"
-        android:layout_width="@dimen/_12sdp"
-        android:layout_height="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:src="@drawable/ic_comment"
-        android:layout_marginTop="@dimen/_2sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_send"
-        app:layout_constraintEnd_toStartOf="@id/tv_send"
-        app:layout_constraintTop_toTopOf="@+id/tv_send" />
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:src="@drawable/ic_send"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_time"
+        app:layout_constraintEnd_toEndOf="@+id/tv_main"
+        app:layout_constraintTop_toTopOf="@+id/tv_time"
+        app:tint="@color/grey" />
 
-    <TextView
-        android:id="@+id/tv_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/send"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_ch_logo"
-        app:layout_constraintEnd_toEndOf="@id/tv_main"
-        app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
+
 
     <View
         android:id="@+id/v_1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@color/grey_d"
-        app:layout_constraintTop_toBottomOf="@id/tv_send" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_ch_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

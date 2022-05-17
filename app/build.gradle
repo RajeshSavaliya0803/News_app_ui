@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -57,6 +59,10 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
     //rounded imageview
     implementation "com.makeramen:roundedimageview:2.3.0"
 
@@ -65,18 +71,35 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
-//    implementation 'com.github.andrefrsousa:SuperBottomSheet:2.0.0'
 
-    implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
+//    implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
+    //Lifecycle + View Model
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+
+    //Paging 3
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
+
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.41"
+    kapt "com.google.dagger:hilt-android-compiler:2.41"
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+}
+
+kapt {
+    correctErrorTypes = true
 }

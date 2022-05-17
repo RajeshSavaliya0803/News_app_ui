@@ -1,11 +1,11 @@
-package com.sendstory.newsapp.model
+package com.sendstory.newsapp.data
 
 import com.google.gson.annotations.SerializedName
 
 data class NewsModel(
 
     @field:SerializedName("news")
-    val news: List<NewsItem?>? = null,
+    val news: List<NewsItem>? = null,
 
     @field:SerializedName("total")
     val total: Int? = null,

@@ -121,7 +121,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:lineHeight="@dimen/_24sdp"
+                    android:lineSpacingMultiplier="1.2"
                     android:text="@string/b_lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
@@ -141,6 +141,7 @@
                     android:text="@string/read_full_story"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_summary_o"
                     app:layout_constraintTop_toBottomOf="@id/tv_summary_o" />
@@ -151,9 +152,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/blankArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

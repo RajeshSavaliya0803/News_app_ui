@@ -20,7 +20,7 @@ import com.sendstory.newsapp.Constants
 import com.sendstory.newsapp.R
 import com.sendstory.newsapp.databinding.ModalBottomSheetContentBinding
 import com.sendstory.newsapp.detail.DetailActivity
-import com.sendstory.newsapp.model.News
+import com.sendstory.newsapp.data.News
 import com.squareup.picasso.Picasso
 
 
@@ -41,7 +41,7 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
         binding.tvReadFullHistory.setOnClickListener {
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(Constants.newsLink, data.sourceurl)
+            intent.putExtra(Constants.newsLink, data.formattedSummary)
             startActivity(intent)
         }
 

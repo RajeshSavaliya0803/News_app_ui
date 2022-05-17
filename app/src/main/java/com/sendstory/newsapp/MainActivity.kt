@@ -1,62 +1,96 @@
 package com.sendstory.newsapp
 
-import android.app.ProgressDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.ybq.android.spinkit.SpinKitView
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
-import com.sendstory.newsapp.adapter.NewsListAdapter
+import com.sendstory.newsapp.adapter.LoadingStateAdapter
+import com.sendstory.newsapp.adapter.NewsPagingAdapter
 import com.sendstory.newsapp.databinding.ActivityMainBinding
 import com.sendstory.newsapp.fragment.ModalBottomSheet
-import com.sendstory.newsapp.model.NewsItem
+import com.sendstory.newsapp.retrofit.ApiResponse
 import com.sendstory.newsapp.retrofit.NewsAPI
-import com.sendstory.newsapp.retrofit.NewsHelper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
 
     lateinit var tabLayout: TabLayout
-
     lateinit var recyclerView: RecyclerView
+    lateinit var spinKit: SpinKitView
     private lateinit var binding: ActivityMainBinding
-    private lateinit var newsList: ArrayList<NewsItem>
-    private lateinit var adapter: NewsListAdapter
+    private lateinit var pagingAdapter: NewsPagingAdapter
     private lateinit var modalBottomSheet: ModalBottomSheet
     lateinit var country: String
+    private lateinit var viewModel : NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         init()
         initList()
         initTab()
+        initObserver()
+    }
+
+
+    private fun initObserver() {
+        viewModel.responseObserve.observe(this){ response ->
+            when(response){
+                is ApiResponse.Error -> {
+                    Toast.makeText(this,"Error while getting News details",Toast.LENGTH_SHORT).show()
+                }
+                is ApiResponse.Loading -> {
+
+                }
+                is ApiResponse.Success -> {
+                    val bundle = Bundle()
+                    bundle.putSerializable(Constants.news, response.data?.news)
+                    modalBottomSheet.arguments = bundle
+                    modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+                }
+            }
+
+        }
     }
 
 
     private fun init() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        window.statusBarColor = Color.TRANSPARENT
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
         tabLayout = binding.tabLayout
         recyclerView = binding.mainRecycler
-        newsList = ArrayList()
+        spinKit = binding.spinKit
         modalBottomSheet = ModalBottomSheet()
+        val newsId = intent.getStringExtra(Constants.newsId)
+        Log.e(TAG, "init: Intent Data => $newsId", )
+        if(newsId != null){
+            viewModel.getNewsDetail(id = newsId)
+        }
     }
 
     private fun initList() {
         country = resources.configuration.locale.country
+        Log.e(TAG, ":initList Country => $country", )
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -67,85 +101,59 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             Log.e(TAG, "initList: $token")
         })
-        getNewsList(true, "", country, "1")
+        setupRecyclerView()
+        getNewsList("", country, )
     }
-
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun getNewsList(firstTime: Boolean, category: String, country: String, page: String) {
-        val progressDialog = ProgressDialog(this@MainActivity)
-        if (firstTime) {
-            progressDialog.setTitle("Please wait..")
-            progressDialog.setMessage("Getting the latest news")
-            progressDialog.show()
-        }
-
-        val quotesApi = NewsHelper.getInstance().create(NewsAPI::class.java)
-        // launching a new coroutine
-        GlobalScope.launch {
-            val result = quotesApi.getNewsList(category, country, page)
-            newsList = result.body()!!.news as ArrayList<NewsItem>
-            runOnUiThread {
-                progressDialog.dismiss()
-                setupRecyclerView()
+    
+    private fun getNewsList(category: String, country: String) {
+        lifecycleScope.launch{
+            viewModel.fetchNews(category,country).flowWithLifecycle(lifecycle,Lifecycle.State.STARTED).collect {
+                pagingAdapter.submitData(it)
             }
         }
     }
 
     private fun setupRecyclerView() {
+        
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = NewsListAdapter(newsList) { currentNews ->
-            showModal(currentNews.id)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setItemViewCacheSize(20)
+        pagingAdapter = NewsPagingAdapter(context = applicationContext) { item ->
+            viewModel.getNewsDetail(id = item.id!!)
         }
-        recyclerView.adapter = adapter
+        recyclerView.adapter = pagingAdapter.withLoadStateFooter(LoadingStateAdapter { pagingAdapter.retry() })
+
+        initAdapterListener()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun showModal(id: String?) {
-        val quotesApi = NewsHelper.getInstance().create(NewsAPI::class.java)
-        // launching a new coroutine
-        GlobalScope.launch {
-            val result = id?.let { quotesApi.getNewsDetails(it) }
-            runOnUiThread {
-                if (result!!.body()!!.statusCode == 200) {
-                    val bundle = Bundle()
-                    bundle.putSerializable(Constants.news, result.body()!!.news)
-                    modalBottomSheet.arguments = bundle
-
-                    modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+    private fun initAdapterListener() {
+        pagingAdapter.addLoadStateListener { listener ->
+            when (listener.refresh) {
+                is LoadState.NotLoading -> {
+                    Log.e(TAG, "initAdapterListener: Not Loading", )
+                    if(spinKit.visibility == View.VISIBLE){
+                        spinKit.visibility = View.GONE
+                    }
+                    if(recyclerView.visibility == View.GONE){
+                        recyclerView.visibility = View.VISIBLE
+                    }
+                }
+                LoadState.Loading -> {
+                    Log.e(TAG, "initAdapterListener: Loading", )
+                    spinKit.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
+                is LoadState.Error -> {
+                    Log.e(TAG, "initAdapterListener: Error", )
+                    if(spinKit.visibility == View.VISIBLE){
+                        spinKit.visibility = View.GONE
+                    }
+                    Toast.makeText(this, ((listener.refresh as LoadState.Error).error.toString()),Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
-        /*val mBottomSheetDialog = RoundedBottomSheetDialog(this@MainActivity)
-        val sheetView = layoutInflater.inflate(R.layout.modal_bottom_sheet_content, null)
-        mBottomSheetDialog.setContentView(sheetView)
-        mBottomSheetDialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            val bottomSheet =
-                bottomSheetDialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                    ?: return@setOnShowListener
-
-            bottomSheet.setBackgroundColor(ContextCompat.getColor(this@MainActivity, android.R.color.transparent))
-            bottomSheet.background = ContextCompat.getDrawable(this@MainActivity, R.drawable.rounded_dialog)
-
-            bottomSheet.apply {
-                val maxDesiredHeight =
-                    (resources.displayMetrics.heightPixels * 0.80).toInt()
-                if (this.height > maxDesiredHeight) {
-                    val bottomSheetLayoutParams = this.layoutParams
-                    bottomSheetLayoutParams.height = maxDesiredHeight
-                    this.layoutParams = bottomSheetLayoutParams
-                }
-                BottomSheetBehavior.from(this).apply {
-                    this.state = BottomSheetBehavior.STATE_EXPANDED
-                    this.skipCollapsed = true
-                }
-            }
-        }
-
-        mBottomSheetDialog.show()*/
-
     }
+    
 
     private fun initTab() {
 
@@ -165,31 +173,31 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        getNewsList(true, Constants.Today, country, "1")
+                        getNewsList(Constants.Today, country)
                     }
                     1 -> {
-                        getNewsList(true, Constants.World, country, "1")
+                        getNewsList(Constants.World, country)
                     }
                     2 -> {
-                        getNewsList(true, Constants.Business, country, "1")
+                        getNewsList(Constants.Business, country)
                     }
                     3 -> {
-                        getNewsList(true, Constants.Tech, country, "1")
+                        getNewsList(Constants.Tech, country)
                     }
                     4 -> {
-                        getNewsList(true, Constants.Entertainment, country, "1")
+                        getNewsList(Constants.Entertainment, country)
                     }
                     5 -> {
-                        getNewsList(true, Constants.Nation, country, "1")
+                        getNewsList(Constants.Nation, country)
                     }
                     6 -> {
-                        getNewsList(true, Constants.Lifestyle, country, "1")
+                        getNewsList(Constants.Lifestyle, country)
                     }
                     7 -> {
-                        getNewsList(true, Constants.Health, country, "1")
+                        getNewsList(Constants.Health, country)
                     }
                     8 -> {
-                        getNewsList(true, Constants.Sports, country, "1")
+                        getNewsList(Constants.Sports, country)
                     }
                 }
             }

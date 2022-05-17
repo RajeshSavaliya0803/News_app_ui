@@ -14,5 +14,9 @@
     <string name="summary">Summary :</string>
     <string name="read_full_story">Read Full Story</string>
     <string name="msg_token_fmt">Token:-</string>
+    <string name="retry">Retry</string>
+    <string name="default_notification_channel_id">Default Channel</string>
+    <string name="default_notification_channel_name">Default Name</string>
+
 
 </resources>

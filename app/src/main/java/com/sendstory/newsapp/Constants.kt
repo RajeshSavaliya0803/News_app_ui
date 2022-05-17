@@ -2,7 +2,8 @@ package com.sendstory.newsapp
 
 object Constants {
     const val VIEW_TYPE_ONE = 1
-    const val VIEW_TYPE_TWO = 0
+
+    const val BASE_URL = "http://sendstory.co/API/v1.0/"
 
     const val Today = ""
     const val World = "world"
@@ -16,4 +17,5 @@ object Constants {
 
     const val news = "news"
     const val newsLink = "newsLink"
+    const val newsId = "newsID"
 }

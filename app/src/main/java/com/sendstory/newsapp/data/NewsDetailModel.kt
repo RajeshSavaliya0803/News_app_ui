@@ -1,4 +1,4 @@
-package com.sendstory.newsapp.model
+package com.sendstory.newsapp.data
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
