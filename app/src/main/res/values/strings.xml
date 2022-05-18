@@ -17,6 +17,13 @@
     <string name="retry">Retry</string>
     <string name="default_notification_channel_id">Default Channel</string>
     <string name="default_notification_channel_name">Default Name</string>
+    <string name="nice_html">
+<![CDATA[
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /><style type="text/css">body{font-family: \'-apple-system\',\'HelveticaNeue\';} img{max-width:100%%; padding:0px; margin:0px;} div.newscontent h1{margin-top:18px; margin-bottom:18px; line-height:30px; font-size:25px; color:black;} div.newscontent h2{margin-top:15px; margin-bottom:15px; line-height:24px; font-size:16px; color:black;} div.newscontent h3{margin-top:25px; margin-bottom:25px; line-height:32px; font-size:17px; color:black;} div.newscontent blockquote{margin:15px; border-left:3px solid #eeeeee; color:#666666; font-size:15px; padding-left:25px;} div.newscontent{font-size:16px; line-height:23px; background-color:white;} div.newscontent a{color:#1761F9;} div.newscontent a:hover{color:#666666;} div.newscontent figcaption{color:#888888; font-size:13px; text-align:center;} iframe{background-color:#f9f9f9;} ul{margin:0px; list-style-type: square; padding-left:16px;} li{color:#1761F9; margin-left:0px; padding:0px; padding-left:10px; margin-bottom:8px;} li span{color:black;}</style></head><body style="margin:0px;"><div align="center"><div style="max-width:680px; margin:15px;" align="left" class="newscontent"><h2>Summary:</h2>
+%s
+</div></div></body></html>
+]]>
+</string>
 
 
 </resources>

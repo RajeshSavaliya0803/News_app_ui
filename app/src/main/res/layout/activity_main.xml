@@ -31,7 +31,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_action_name"
-        app:tabIndicator="@color/white"
+        app:tabIndicator="@drawable/ic_tab_indicator"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorFullWidth="false"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/l_blue" />
