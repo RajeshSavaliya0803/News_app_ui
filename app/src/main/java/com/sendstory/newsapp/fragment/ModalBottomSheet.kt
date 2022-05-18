@@ -41,7 +41,7 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
         binding.tvReadFullHistory.setOnClickListener {
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(Constants.newsLink, data.formattedSummary)
+            intent.putExtra(Constants.newsLink, data.sourceurl)
             startActivity(intent)
         }
 
