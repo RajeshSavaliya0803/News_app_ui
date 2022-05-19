@@ -99,7 +99,8 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     //time-convert
-    implementation 'org.apache.commons:commons-lang3:3.6'
+    implementation 'org.apache.commons:commons-lang3:3.9'
+//    implementation 'org.apache.commons:commons-text:1.7'
 
 }
 

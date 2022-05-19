@@ -2,6 +2,7 @@ package com.sendstory.newsapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -16,16 +17,20 @@ import com.sendstory.newsapp.data.NewsItem
 import com.sendstory.newsapp.databinding.ItemNewsHeaderBinding
 import com.sendstory.newsapp.databinding.ItemSmallListBinding
 
-class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> Unit) : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> Unit) :
+    PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
-    inner class ViewTypeSmall(private var binding: ItemSmallListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewTypeSmall(private var binding: ItemSmallListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bindItem(currentItem: NewsItem) {
             binding.tvMain.text = currentItem.headline
             binding.tvChName.text = currentItem.publisher!!.pubname
             binding.tvTime.text = context.getAge(currentItem.pubtimestamp!!.toLong())
 
-            Glide.with(context).load(currentItem.imageurl).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(binding.ivMain)
+
+            Glide.with(context).load(currentItem.imageurl)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(binding.ivMain)
             if (currentItem.publisher.favicon!!.isEmpty()) {
                 Glide.with(context).load(R.drawable.ic_placeholder).into(binding.ivChLogo)
             } else {
@@ -42,14 +47,14 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
 
     }
 
-    inner class ViewTypeHeader(private var binding: ItemNewsHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewTypeHeader(private var binding: ItemNewsHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bindItem(currentItem: NewsItem) {
             binding.tvMain.text = currentItem.headline
             binding.tvChName.text = currentItem.publisher!!.pubname
             binding.tvTime.text = context.getAge(currentItem.pubtimestamp!!.toLong())
-
             Glide.with(context).load(currentItem.imageurl).diskCacheStrategy(
                 DiskCacheStrategy.AUTOMATIC
             ).into(binding.ivMain)
@@ -77,8 +82,10 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewOne = ItemNewsHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewTwo = ItemSmallListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewOne =
+            ItemNewsHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewTwo =
+            ItemSmallListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return if (viewType == Constants.VIEW_TYPE_ONE) {
             ViewTypeHeader(viewOne)
         } else {

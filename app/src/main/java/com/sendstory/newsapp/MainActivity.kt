@@ -3,6 +3,7 @@ package com.sendstory.newsapp
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
     lateinit var recyclerView: RecyclerView
     lateinit var spinKit: SpinKitView
+    lateinit var emptyText : TextView
     private lateinit var binding: ActivityMainBinding
     private lateinit var pagingAdapter: NewsPagingAdapter
     private lateinit var modalBottomSheet: ModalBottomSheet
@@ -80,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout = binding.tabLayout
         recyclerView = binding.mainRecycler
         spinKit = binding.spinKit
+        emptyText = binding.emptyText
         modalBottomSheet = ModalBottomSheet()
         val newsId = intent.getStringExtra(Constants.newsId)
         Log.e(TAG, "init: Intent Data => $newsId", )
@@ -131,11 +134,21 @@ class MainActivity : AppCompatActivity() {
             when (listener.refresh) {
                 is LoadState.NotLoading -> {
                     Log.e(TAG, "initAdapterListener: Not Loading", )
+                    Log.e(TAG, "initAdapterListener: data => ${pagingAdapter.itemCount}", )
                     if(spinKit.visibility == View.VISIBLE){
                         spinKit.visibility = View.GONE
                     }
-                    if(recyclerView.visibility == View.GONE){
-                        recyclerView.visibility = View.VISIBLE
+                    if(pagingAdapter.itemCount == 0){
+                        if(emptyText.visibility == View.GONE){
+                            emptyText.visibility = View.VISIBLE
+                            recyclerView.visibility = View.GONE
+                        }
+
+                    }else{
+                        if(recyclerView.visibility == View.GONE){
+                            recyclerView.visibility = View.VISIBLE
+                            emptyText.visibility = View.GONE
+                        }
                     }
                 }
                 LoadState.Loading -> {
@@ -164,7 +177,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText(Constants.Entertainment.substring(0, 1).uppercase() + Constants.Entertainment.substring(1).lowercase()))
         tabLayout.addTab(tabLayout.newTab().setText(Constants.Nation.substring(0, 1).uppercase() + Constants.Nation.substring(1).lowercase()))
         tabLayout.addTab(tabLayout.newTab().setText(Constants.Lifestyle.substring(0, 1).uppercase() + Constants.Lifestyle.substring(1).lowercase()))
-        tabLayout.addTab(tabLayout.newTab().setText(Constants.Health.substring(0, 1).uppercase() + Constants.Health.substring(1).lowercase()))
+        tabLayout.addTab(tabLayout.newTab().setText(Constants.Politics.substring(0, 1).uppercase() + Constants.Politics.substring(1).lowercase()))
         tabLayout.addTab(tabLayout.newTab().setText(Constants.Sports.substring(0, 1).uppercase() + Constants.Sports.substring(1).lowercase()))
 
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
@@ -194,7 +207,7 @@ class MainActivity : AppCompatActivity() {
                         getNewsList(Constants.Lifestyle, country)
                     }
                     7 -> {
-                        getNewsList(Constants.Health, country)
+                        getNewsList(Constants.Politics, country)
                     }
                     8 -> {
                         getNewsList(Constants.Sports, country)

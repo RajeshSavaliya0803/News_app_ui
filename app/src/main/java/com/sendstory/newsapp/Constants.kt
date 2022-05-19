@@ -12,7 +12,7 @@ object Constants {
     const val Entertainment = "entertainment"
     const val Nation = "nation"
     const val Lifestyle = "lifestyle"
-    const val Health = "health"
+    const val Politics = "politics"
     const val Sports = "sports"
 
     const val news = "news"
