@@ -32,6 +32,7 @@ import com.sendstory.newsapp.data.NewsItem
 import com.sendstory.newsapp.databinding.ShareBottomSheetContentBinding
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class ShareBottomSheet : BottomSheetDialogFragment() {
@@ -137,7 +138,8 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         var screenshot: Bitmap? = null
         try {
             // the background color
-            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
+            screenshot =
+                Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
             // Now draw this bitmap on a canvas
             val canvas = Canvas(screenshot)
             v.draw(canvas)
@@ -151,12 +153,8 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
     private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.contentResolver,
-            inImage,
-            "Share",
-            "Sharing image"
-        )
+        val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "IMG_" + Calendar.getInstance().time, null)
+        Log.e(TAG, "getImageUri: $path")
         return Uri.parse(path)
     }
 
