@@ -26,18 +26,20 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
             binding.tvMain.text = currentItem.headline
             binding.tvChName.text = currentItem.publisher!!.pubname
             binding.tvTime.text = context.getAge(currentItem.pubtimestamp!!.toLong())
+
             Glide.with(context).load(currentItem.imageurl)
+                .placeholder(R.drawable.ic_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(binding.ivMain)
             if (currentItem.publisher.favicon!!.isEmpty()) {
                 Glide.with(context).load(R.drawable.ic_placeholder).into(binding.ivChLogo)
             } else {
-                Glide.with(context).load(currentItem.publisher.favicon).diskCacheStrategy(
-                    DiskCacheStrategy.AUTOMATIC
-                ).into(binding.ivChLogo)
+                Glide.with(context).load(currentItem.publisher.favicon).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(binding.ivChLogo)
             }
+
             binding.ivShare.setOnClickListener {
                 onShared(currentItem)
             }
+
             binding.root.setOnClickListener {
                 onClick(currentItem)
             }

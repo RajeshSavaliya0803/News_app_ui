@@ -1,5 +1,6 @@
 package com.sendstory.newsapp.fragment
 
+import android.R.attr.bitmap
 import android.app.Activity
 import android.app.Dialog
 import android.content.ClipData
@@ -9,6 +10,7 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,7 +21,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -74,7 +77,6 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
                     android.R.color.transparent
                 )
             )
-//            bottomSheet.background = ContextCompat.getDrawable(requireActivity().applicationContext, R.drawable.rounded_dialog)
 
             bottomSheet.apply {
                 val maxDesiredHeight = (resources.displayMetrics.heightPixels * 0.80).toInt()
@@ -98,7 +100,6 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         Picasso.get().load(data.imageurl).into(binding.ivMain)
         binding.tvDes.text = data.headline
         binding.tvPub.text = data.publisher!!.pubname
-//        binding.tvTime.text = requireContext().getAge(news.pubtimestamp!!.toLong())
 
         if (data.publisher.favicon!!.isEmpty()) {
             Picasso.get().load(R.drawable.ic_placeholder).into(binding.ivChLogo)
@@ -108,7 +109,7 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
 
         binding.ivInsta.setOnClickListener {
             //TODO: uncomment after successful open instagram
-            val bitmap = getScreenShotFromView(binding.shareImageView)
+            val bitmap = getScreenShotFromView(binding.cardView)
             if (bitmap != null) {
                 val uri = getImageUri(requireContext(), bitmap)
                 if (uri != null) {
@@ -121,10 +122,11 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         binding.ivLink.setOnClickListener {
             val clipboard: ClipboardManager? =
                 requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
-            val clip = ClipData.newPlainText("","${data.sourceurl}")
+            val clip = ClipData.newPlainText("", "${data.sourceurl}")
             clipboard?.setPrimaryClip(clip)
-            if(clipboard?.primaryClip != null){
-                Toast.makeText(requireContext(),"Link copied successfully",Toast.LENGTH_SHORT).show()
+            if (clipboard?.primaryClip != null) {
+                Toast.makeText(requireContext(), "Link copied successfully", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -134,13 +136,8 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         // create a bitmap object
         var screenshot: Bitmap? = null
         try {
-            // inflate screenshot object
-            // with Bitmap.createBitmap it
-            // requires three parameters
-            // width and height of the view and
             // the background color
-            screenshot =
-                Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
+            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
             // Now draw this bitmap on a canvas
             val canvas = Canvas(screenshot)
             v.draw(canvas)
@@ -164,40 +161,17 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun shareFileToInstagram(uri: Uri) {
-//        val feedIntent = Intent(Intent.ACTION_SEND)
-//        feedIntent.type = "image/*"
-//        feedIntent.putExtra(Intent.EXTRA_STREAM, uri)
-//        feedIntent.setPackage(Constants.INSTAGRAM_PACKAGE)
-//        val storiesIntent = Intent("com.instagram.share.ADD_TO_STORY")
-//        storiesIntent.setDataAndType(uri, "jpg")
-//        storiesIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//        storiesIntent.setPackage(Constants.INSTAGRAM_PACKAGE)
-//        requireActivity().grantUriPermission(
-//            "com.instagram.android", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-//        )
-////        val chooserIntent = Intent.createChooser(feedIntent, "Share to Instagram")
-////        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(storiesIntent))
-////        startActivity(chooserIntent)
         val intent = Intent("com.instagram.share.ADD_TO_STORY")
 
         intent.setDataAndType(uri, "image/*")
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         val activity: Activity = requireActivity()
-        Log.e(TAG, "shareFileToInstagram: Implicit intent => $activity")
-        Log.e(TAG, "shareFileToInstagram: Implicit intent => ${activity.packageManager}")
-        Log.e(
-            TAG,
-            "shareFileToInstagram: Implicit intent => ${
-                activity.packageManager.resolveActivity(
-                    intent,
-                    0
-                )
-            }"
-        )
+
         if (activity.packageManager.resolveActivity(intent, 0) != null) {
             activity.startActivityForResult(intent, 0)
-        }else{
-            Toast.makeText(requireContext(),"Instagram is not installed",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Instagram is not installed", Toast.LENGTH_SHORT)
+                .show()
         }
 
     }

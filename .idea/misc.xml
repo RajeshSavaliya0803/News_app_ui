@@ -20,10 +20,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_news_header.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_pager_state.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_small_list.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_small_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.25" />
         <entry key="app/src/main/res/layout/news_bottom_sheet_content.xml" value="0.11197916666666667" />
-        <entry key="app/src/main/res/layout/share_bottom_sheet_content.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/share_bottom_sheet_content.xml" value="0.33125" />
       </map>
     </option>
   </component>

@@ -12,7 +12,6 @@ import com.sendstory.newsapp.databinding.ItemPagerStateBinding
 class LoadingStateAdapter(private val retry : ()-> Unit) : LoadStateAdapter<LoadingStateAdapter.StateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) : StateViewHolder{
-        Log.e("TAG", "Create ViewHolder", )
         return StateViewHolder(ItemPagerStateBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
@@ -30,7 +29,6 @@ class LoadingStateAdapter(private val retry : ()-> Unit) : LoadStateAdapter<Load
         }
 
         fun bind(loadState: LoadState) {
-            Log.e("TAG", "StateHolderBind: $loadState ", )
             with(binding) {
                 spinKitLoader.isVisible = loadState is LoadState.Loading
                 retryButton.isVisible = loadState is LoadState.Error

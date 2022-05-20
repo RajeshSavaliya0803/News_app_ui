@@ -126,8 +126,6 @@ class MainActivity : AppCompatActivity() {
         }, onShared = { shareItem->
             val bundle = Bundle()
             bundle.putSerializable(Constants.news,shareItem)
-//            bundle.putSerializable(Constants.news,shareItem)
-//            newsBottomSheet.arguments = bundle
             shareBottomSheet.arguments = bundle
             shareBottomSheet.show(supportFragmentManager, ShareBottomSheet.TAG)
         })

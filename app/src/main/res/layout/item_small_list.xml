@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_10sdp"
-    >
+    android:padding="@dimen/_10sdp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_main"
@@ -22,10 +21,11 @@
         android:id="@+id/tv_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_14sdp"
         android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
         android:textColor="@color/black"
+        android:maxLines="3"
         android:textSize="@dimen/_12ssp"
-        android:layout_marginStart="@dimen/_14sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_main"
@@ -63,13 +63,12 @@
         app:layout_constraintStart_toEndOf="@id/tv_ch_name"
         app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
 
-
-
     <ImageView
         android:id="@+id/iv_share"
-        android:layout_width="@dimen/_14sdp"
-        android:layout_height="@dimen/_14sdp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:src="@drawable/ic_send"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_time"
         app:layout_constraintEnd_toEndOf="@+id/tv_main"
         app:layout_constraintTop_toTopOf="@+id/tv_time"
