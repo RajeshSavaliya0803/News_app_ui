@@ -20,12 +20,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.sendstory.newsapp.adapter.LoadingStateAdapter
 import com.sendstory.newsapp.adapter.NewsPagingAdapter
 import com.sendstory.newsapp.databinding.ActivityMainBinding
-import com.sendstory.newsapp.fragment.ModalBottomSheet
+import com.sendstory.newsapp.fragment.NewsBottomSheet
+import com.sendstory.newsapp.fragment.ShareBottomSheet
 import com.sendstory.newsapp.retrofit.ApiResponse
-import com.sendstory.newsapp.retrofit.NewsAPI
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -41,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var emptyText : TextView
     private lateinit var binding: ActivityMainBinding
     private lateinit var pagingAdapter: NewsPagingAdapter
-    private lateinit var modalBottomSheet: ModalBottomSheet
+    private lateinit var newsBottomSheet: NewsBottomSheet
+    private lateinit var shareBottomSheet: ShareBottomSheet
     lateinit var country: String
     private lateinit var viewModel : NewsViewModel
 
@@ -68,8 +67,8 @@ class MainActivity : AppCompatActivity() {
                 is ApiResponse.Success -> {
                     val bundle = Bundle()
                     bundle.putSerializable(Constants.news, response.data?.news)
-                    modalBottomSheet.arguments = bundle
-                    modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+                    newsBottomSheet.arguments = bundle
+                    newsBottomSheet.show(supportFragmentManager, NewsBottomSheet.TAG)
                 }
             }
 
@@ -83,7 +82,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView = binding.mainRecycler
         spinKit = binding.spinKit
         emptyText = binding.emptyText
-        modalBottomSheet = ModalBottomSheet()
+        newsBottomSheet = NewsBottomSheet()
+        shareBottomSheet = ShareBottomSheet()
         val newsId = intent.getStringExtra(Constants.newsId)
         Log.e(TAG, "init: Intent Data => $newsId", )
         if(newsId != null){

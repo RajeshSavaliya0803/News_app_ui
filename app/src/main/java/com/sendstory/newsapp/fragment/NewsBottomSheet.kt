@@ -18,26 +18,21 @@ import com.sendstory.newsapp.Constants
 import com.sendstory.newsapp.R
 import com.sendstory.newsapp.comman.getAge
 import com.sendstory.newsapp.data.News
-import com.sendstory.newsapp.databinding.ModalBottomSheetContentBinding
+import com.sendstory.newsapp.databinding.NewsBottomSheetContentBinding
 import com.sendstory.newsapp.detail.DetailActivity
 import com.squareup.picasso.Picasso
 
-
-class ModalBottomSheet : BottomSheetDialogFragment() {
+class NewsBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ModalBottomSheet"
     }
 
-    lateinit var binding: ModalBottomSheetContentBinding
+    lateinit var binding: NewsBottomSheetContentBinding
     lateinit var dialog: BottomSheetDialog
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = ModalBottomSheetContentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = NewsBottomSheetContentBinding.inflate(inflater, container, false)
 
         val data = arguments?.getSerializable(Constants.news) as News
         showNewsDialog(data)
@@ -61,24 +56,14 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
         dialog.setOnShowListener { dialogInterface ->
             val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            val bottomSheet =
-                bottomSheetDialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                    ?: return@setOnShowListener
+            val bottomSheet = bottomSheetDialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet) ?: return@setOnShowListener
 
-            bottomSheet.setBackgroundColor(
-                ContextCompat.getColor(
-                    requireActivity().applicationContext,
-                    android.R.color.transparent
-                )
-            )
-            bottomSheet.background = ContextCompat.getDrawable(
-                requireActivity().applicationContext,
-                R.drawable.rounded_dialog
-            )
+            bottomSheet.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, android.R.color.transparent))
+            bottomSheet.background = ContextCompat.getDrawable(requireActivity().applicationContext, R.drawable.rounded_dialog)
 
             bottomSheet.apply {
-                val maxDesiredHeight =
-                    (resources.displayMetrics.heightPixels * 0.80).toInt()
+                val maxDesiredHeight = (resources.displayMetrics.heightPixels * 0.80).toInt()
+
                 if (this.height > maxDesiredHeight) {
                     val bottomSheetLayoutParams = this.layoutParams
                     bottomSheetLayoutParams.height = maxDesiredHeight
@@ -96,9 +81,7 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
     @SuppressLint("SetTextI18n")
     fun showNewsDialog(news: News?) {
-        val hours = (news!!.pubtimestamp!!.toInt() / (1000 * 60 * 60) % 24)
-
-        Picasso.get().load(news.imageurl).into(binding.ivMain)
+        Picasso.get().load(news!!.imageurl).into(binding.ivMain)
         binding.tvMain.text = news.headline
         binding.tvChName.text = news.publisher!!.pubname
         binding.tvTime.text = requireContext().getAge(news.pubtimestamp!!.toLong())
