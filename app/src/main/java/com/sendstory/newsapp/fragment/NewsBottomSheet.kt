@@ -59,7 +59,8 @@ class NewsBottomSheet : BottomSheetDialogFragment() {
             val bottomSheet = bottomSheetDialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet) ?: return@setOnShowListener
 
             bottomSheet.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, android.R.color.transparent))
-            bottomSheet.background = ContextCompat.getDrawable(requireActivity().applicationContext, R.drawable.rounded_dialog)
+//            bottomSheet.background = ContextCompat.getDrawable(requireActivity().applicationContext, R.drawable.rounded_dialog)
+
 
             bottomSheet.apply {
                 val maxDesiredHeight = (resources.displayMetrics.heightPixels * 0.80).toInt()

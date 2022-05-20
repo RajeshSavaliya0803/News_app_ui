@@ -121,9 +121,16 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemViewCacheSize(20)
-        pagingAdapter = NewsPagingAdapter(context = applicationContext) { item ->
-            viewModel.getNewsDetail(id = item.id!!)
-        }
+        pagingAdapter = NewsPagingAdapter(context = applicationContext, onClick = { news ->
+            viewModel.getNewsDetail(id = news.id!!)
+        }, onShared = { shareItem->
+            val bundle = Bundle()
+            bundle.putSerializable(Constants.news,shareItem)
+//            bundle.putSerializable(Constants.news,shareItem)
+//            newsBottomSheet.arguments = bundle
+            shareBottomSheet.arguments = bundle
+            shareBottomSheet.show(supportFragmentManager, ShareBottomSheet.TAG)
+        })
         recyclerView.adapter = pagingAdapter.withLoadStateFooter(LoadingStateAdapter { pagingAdapter.retry() })
 
         initAdapterListener()

@@ -18,4 +18,6 @@ object Constants {
     const val news = "news"
     const val newsLink = "newsLink"
     const val newsId = "newsID"
+
+    const val INSTAGRAM_PACKAGE = "com.instagram.android"
 }

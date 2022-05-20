@@ -16,7 +16,7 @@ import com.sendstory.newsapp.data.NewsItem
 import com.sendstory.newsapp.databinding.ItemNewsHeaderBinding
 import com.sendstory.newsapp.databinding.ItemSmallListBinding
 
-class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> Unit) :
+class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> Unit, val onShared : (item: NewsItem) -> Unit) :
     PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     inner class ViewTypeSmall(private var binding: ItemSmallListBinding) :
@@ -26,8 +26,6 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
             binding.tvMain.text = currentItem.headline
             binding.tvChName.text = currentItem.publisher!!.pubname
             binding.tvTime.text = context.getAge(currentItem.pubtimestamp!!.toLong())
-
-
             Glide.with(context).load(currentItem.imageurl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(binding.ivMain)
             if (currentItem.publisher.favicon!!.isEmpty()) {
@@ -37,8 +35,9 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
                     DiskCacheStrategy.AUTOMATIC
                 ).into(binding.ivChLogo)
             }
-
-
+            binding.ivShare.setOnClickListener {
+                onShared(currentItem)
+            }
             binding.root.setOnClickListener {
                 onClick(currentItem)
             }
@@ -63,6 +62,9 @@ class NewsPagingAdapter(val context: Context, val onClick: (item: NewsItem) -> U
                 Glide.with(context).load(currentItem.publisher.favicon).diskCacheStrategy(
                     DiskCacheStrategy.AUTOMATIC
                 ).into(binding.ivChLogo)
+            }
+            binding.ivShare.setOnClickListener {
+                onShared(currentItem)
             }
             binding.root.setOnClickListener {
                 onClick(currentItem)

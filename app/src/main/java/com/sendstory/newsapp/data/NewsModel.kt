@@ -1,6 +1,9 @@
 package com.sendstory.newsapp.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class NewsModel(
 
@@ -21,7 +24,7 @@ data class NewsModel(
 
     @field:SerializedName("category")
     val category: String? = null
-)
+) : Serializable
 
 data class NewsItem(
 
@@ -60,7 +63,7 @@ data class NewsItem(
 
     @field:SerializedName("pubtimestamp")
     val pubtimestamp: String? = null
-)
+): Serializable
 
 data class NewsPublisher(
 
@@ -81,4 +84,4 @@ data class NewsPublisher(
 
     @field:SerializedName("logourl")
     val logourl: String? = null
-)
+) : Serializable

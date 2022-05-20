@@ -77,7 +77,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_ch_logo" />
 
     <ImageView
-        android:id="@+id/iv_com_logo"
+        android:id="@+id/iv_share"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_16sdp"
         android:src="@drawable/ic_send"

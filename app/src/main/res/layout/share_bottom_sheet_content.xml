@@ -1,211 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
+    android:background="@drawable/rounded_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+   >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/const_slider"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:paddingBottom="@dimen/_12sdp"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_dialog"
-            android:overScrollMode="never"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingBottom="@dimen/_16sdp"
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_share"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:gravity="center"
+                android:text="@string/share"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_share"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_8sdp"
+                android:background="@android:color/transparent"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_share">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/share_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_14sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:gravity="center"
-                    android:text="@string/share"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:background="@drawable/share_view_bg"
+                    android:paddingBottom="@dimen/_16sdp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/_6sdp"
-                    app:cardElevation="@dimen/_8sdp"
-                    app:cardMaxElevation="@dimen/_8sdp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_share">
+                    <ImageView
+                        android:id="@+id/iv_ch_logo"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:src="@drawable/ic_ch_logo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_pub"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/_16sdp">
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:text="@string/share"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_ch_logo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_ch_logo"
+                        app:layout_constraintTop_toTopOf="@+id/iv_ch_logo"
+                        tools:text="New Straits Times" />
 
-                        <ImageView
-                            android:id="@+id/iv_ch_logo"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_marginStart="@dimen/_12sdp"
-                            android:layout_marginTop="@dimen/_16sdp"
-                            android:src="@drawable/ic_ch_logo"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_des"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/share"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_pub"
+                        app:layout_constraintStart_toStartOf="@+id/iv_ch_logo"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_pub"
+                        tools:text="Man pleads guilty to assaulting Sheffield footballer during pitch invasion" />
 
-                        <TextView
-                            android:id="@+id/tv_pub"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_12sdp"
-                            android:text="@string/share"
-                            android:textColor="@color/grey"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_ch_logo"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/iv_ch_logo"
-                            app:layout_constraintTop_toTopOf="@+id/iv_ch_logo"
-                            tools:text="New Straits Times" />
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_main"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_water"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_pub"
+                        app:layout_constraintStart_toStartOf="@+id/iv_ch_logo"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_des"
+                        app:riv_corner_radius="@dimen/_8sdp" />
 
-                        <TextView
-                            android:id="@+id/tv_des"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:text="@string/share"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="@+id/tv_pub"
-                            app:layout_constraintStart_toStartOf="@+id/iv_ch_logo"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_pub"
-                            tools:text="Man pleads guilty to assaulting Sheffield footballer during pitch invasion" />
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:src="@drawable/ic_logo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_main" />
 
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/iv_main"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_150sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_water"
-                            app:layout_constraintEnd_toEndOf="@+id/tv_pub"
-                            app:layout_constraintStart_toStartOf="@+id/iv_ch_logo"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_des"
-                            app:riv_corner_radius="@dimen/_8sdp" />
+                    <TextView
+                        android:id="@+id/tv_get"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:text="@string/get_the_sendstory_app_for_more"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_logo"
+                        app:layout_constraintTop_toTopOf="@+id/iv_logo" />
 
-                        <ImageView
-                            android:id="@+id/iv_logo"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_marginStart="@dimen/_12sdp"
-                            android:layout_marginTop="@dimen/_16sdp"
-                            android:src="@drawable/ic_logo"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/iv_main" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/tv_get"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_12sdp"
-                            android:layout_marginEnd="@dimen/_12sdp"
-                            android:text="@string/get_the_sendstory_app_for_more"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/iv_logo"
-                            app:layout_constraintTop_toTopOf="@+id/iv_logo" />
+            </com.google.android.material.card.MaterialCardView>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iv_wp"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/ic_wp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_insta"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-                </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/iv_insta"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintEnd_toStartOf="@+id/iv_fb"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_wp"
+                app:layout_constraintTop_toTopOf="@+id/iv_wp" />
 
-                <ImageView
-                    android:id="@+id/iv_wp"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:src="@drawable/ic_wp"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_insta"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_fb"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/ic_fb"
+                app:layout_constraintEnd_toStartOf="@+id/iv_link"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_insta"
+                app:layout_constraintTop_toTopOf="@+id/iv_wp"
+                app:riv_corner_radius="@dimen/_5sdp" />
 
-                <ImageView
-                    android:id="@+id/iv_insta"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:src="@drawable/ic_instagram"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_fb"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_wp"
-                    app:layout_constraintTop_toTopOf="@+id/iv_wp" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_link"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/ic_link"
+                app:layout_constraintEnd_toStartOf="@+id/iv_more"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_fb"
+                app:layout_constraintTop_toTopOf="@+id/iv_wp"
+                app:riv_corner_radius="@dimen/_5sdp" />
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_fb"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:src="@drawable/ic_fb"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_link"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_insta"
-                    app:layout_constraintTop_toTopOf="@+id/iv_wp"
-                    app:riv_corner_radius="@dimen/_5sdp" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_more"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_link"
+                app:layout_constraintTop_toTopOf="@+id/iv_wp"
+                app:riv_corner_radius="@dimen/_5sdp" />
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_link"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:src="@drawable/ic_link"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_more"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_fb"
-                    app:layout_constraintTop_toTopOf="@+id/iv_wp"
-                    app:riv_corner_radius="@dimen/_5sdp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_more"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_link"
-                    app:layout_constraintTop_toTopOf="@+id/iv_wp"
-                    app:riv_corner_radius="@dimen/_5sdp" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
