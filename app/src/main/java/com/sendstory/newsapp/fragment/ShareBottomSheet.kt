@@ -1,16 +1,11 @@
 package com.sendstory.newsapp.fragment
 
-import android.R.attr.bitmap
 import android.app.Activity
 import android.app.Dialog
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
+import android.content.*
 import android.content.Context.CLIPBOARD_SERVICE
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -21,8 +16,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -109,16 +102,13 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.ivInsta.setOnClickListener {
-            //TODO: uncomment after successful open instagram
             val bitmap = getScreenShotFromView(binding.cardView)
             if (bitmap != null) {
                 val uri = getImageUri(requireContext(), bitmap)
                 if (uri != null) {
                     shareFileToInstagram(uri)
                 }
-
             }
-//            shareFileToInstagram(Uri.parse("content://media/external/images/media/287"))
         }
         binding.ivLink.setOnClickListener {
             val clipboard: ClipboardManager? =
@@ -173,6 +163,5 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
         }
 
     }
-
 
 }
