@@ -7,6 +7,7 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -24,7 +25,7 @@ import com.sendstory.newsapp.R
 import com.sendstory.newsapp.data.NewsItem
 import com.sendstory.newsapp.databinding.ShareBottomSheetContentBinding
 import com.squareup.picasso.Picasso
-import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 import java.util.*
 
 
@@ -107,6 +108,8 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
                 val uri = getImageUri(requireContext(), bitmap)
                 if (uri != null) {
                     shareFileToInstagram(uri)
+                }else{
+                    Log.e(TAG, "showShareDialog: URI is null ", )
                 }
             }
         }
@@ -141,11 +144,63 @@ class ShareBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "IMG_" + Calendar.getInstance().time, null)
-        Log.e(TAG, "getImageUri: $path")
-        return Uri.parse(path)
+        var returnUri: Uri ? = null
+        //TODO: Working on Android 10-11 but not on Android 6.0.1
+//        val bytes = ByteArrayOutputStream()
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+//        val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "IMG_" + Calendar.getInstance().time, null)
+//        MediaScannerConnection.scanFile(inContext, arrayOf(path),null
+//        ) { p0, p1 ->
+//            Log.i("ExternalStorage", "Scanned $p0:");
+//            Log.i("ExternalStorage", "-> uri=$p1");
+//        }
+//        Log.e(TAG, "getImageUri: $path")
+//        return Uri.parse(path)
+
+
+        val fileName = "IMG_" + Calendar.getInstance().time
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val valueImage = ContentValues()
+            valueImage.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/")
+            valueImage.put(MediaStore.Images.Media.TITLE, fileName)
+            valueImage.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+            valueImage.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            valueImage.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+            valueImage.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
+            valueImage.put(MediaStore.Images.Media.IS_PENDING, 1)
+            val resolver: ContentResolver = inContext.contentResolver
+            val imageUri =
+                resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, valueImage)
+            val fos: OutputStream? = resolver.openOutputStream(imageUri!!)
+//            val savedBitmap: Bitmap = ImageUtil.getBitmapFromView(postImageView)
+//                .compress(Bitmap.CompressFormat.PNG, 100, fos)
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos?.flush()
+            fos?.close()
+            valueImage.clear()
+            valueImage.put(MediaStore.Audio.Media.IS_PENDING, 0)
+            resolver.update(imageUri, valueImage, null, null)
+            returnUri = imageUri
+        } else {
+            val url: String = MediaStore.Images.Media.insertImage(
+                requireContext().contentResolver,
+                inImage,
+                "IMG_" + Calendar.getInstance().time,
+                null
+            )
+            if (url.isNotEmpty()) {
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(url))
+//                shareIntent.setType("image/*")
+//                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                context!!.startActivity(Intent.createChooser(shareIntent, "Select the app"))
+                returnUri = Uri.parse(url)
+            } else {
+                Toast.makeText(context, "Failed to create shareable image", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+                Log.e(TAG, "getImageUri: $returnUri")
+        return returnUri
     }
 
     private fun shareFileToInstagram(uri: Uri) {
